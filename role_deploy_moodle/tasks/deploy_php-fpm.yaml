@@ -1,0 +1,23 @@
+- name: Install packages PHP and PHP-FPM
+  apt: 
+    name: "{{ php_packages }}"
+    state: latest 
+    update_cache: yes
+
+- name: Started and Enabled PHP-FPM
+  service: 
+    name: php7.4-fpm
+    enabled: true 
+    state: started 
+
+- name: Configure php.ini 
+  copy:
+    src: php.ini 
+    dest: "{{ path_php_ini }}"
+
+- name: Configure www.conf
+  copy:
+    src: www.conf 
+    dest: "{{ path_www_conf }}"
+  notify:
+    - Restarted PHP-FPM

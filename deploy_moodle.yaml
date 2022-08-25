@@ -1,0 +1,7 @@
+---
+- name: Install Moodle on Debian
+  hosts: all
+  become: true
+
+  roles:
+    - role_deploy_moodle

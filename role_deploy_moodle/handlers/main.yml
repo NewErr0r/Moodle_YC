@@ -1,0 +1,13 @@
+---
+- name: Restarted PHP-FPM
+  service:
+    name: php7.4-fpm
+    state: restarted
+
+- name: Restarted NGINX
+  service:
+    name:  nginx
+    state: restarted
+
+
+    

@@ -1,0 +1,31 @@
+---
+required_packages:
+  - graphviz 
+  - aspell 
+  - ghostscript 
+  - clamav 
+  - mlocate
+
+mariadb_packages:
+  - mariadb-server
+  - python3-pymysql
+
+php_packages:
+  - php-fpm 
+  - php-cli
+  - php-mysql 
+  - php-mbstring 
+  - php-xmlrpc 
+  - php-zip 
+  - php-gd 
+  - php-xml 
+  - php-bcmath 
+  - php-ldap 
+  - php-pspell 
+  - php-curl 
+  - php-intl 
+  - php-soap
+
+path_php_ini: /etc/php/7.4/fpm/php.ini
+path_www_conf: /etc/php/7.4/fpm/pool.d/www.conf
+path_nginx: /etc/nginx/sites-available/default

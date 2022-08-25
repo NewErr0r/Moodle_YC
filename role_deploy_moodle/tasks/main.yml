@@ -1,0 +1,65 @@
+---
+- name: Update all packages
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install list of required packages
+  apt: 
+    name: "{{ required_packages }}"
+    state: latest
+    update_cache: yes
+
+- name: Install and configuration database on Moodle
+  include_tasks: deploy_mariadb.yaml
+
+- name: Install and configuration PHP-FPM
+  include_tasks: deploy_php-fpm.yaml
+
+- name: Download Moodle 
+  get_url: 
+    url: "{{ url }}"
+    dest: "{{ path_download }}"
+
+- name: Install and configuration NGINX 
+  include_tasks: deploy_nginx.yaml
+
+- name: Unarchive the project
+  unarchive:
+    src: "{{ path_download }}/moodle-3.9.1.tgz"
+    dest: "{{ path_download }}"
+    remote_src: yes
+
+- name: Copy project in var 
+  copy: 
+    src: "{{ path_download }}/moodle"
+    dest: "{{ directory_project }}"
+    remote_src: yes 
+
+- name: Set the rights of the yf project
+  file: 
+    path: "{{ directory_project }}"
+    state: directory 
+    recurse: yes 
+    owner: www-data
+    group: www-data
+    mode: "0775"
+
+- name: Creating a directory for Moodle files
+  file:
+    path: "{{ directory_project }}/moodledata"
+    state: directory
+    recurse: yes
+    group: www-data 
+    mode: "0770"
+
+- debug: 
+    msg: 
+      - "Open the browser 'http://{{ ansible_ssh_host }}/moodle'"
+      - "################################################"
+      - "database ---> '{{ name_db }}'"
+      - "user db  ---> '{{ user_db }}'"
+      - "password ---> '{{ pass_user_db }}'"
+      - "################################################"

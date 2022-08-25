@@ -1,0 +1,13 @@
+---
+### MariaDB ###
+root_pass: "P@ssw0rd"
+name_db: "moodle"
+user_db: "moodle"
+pass_user_db: "P@ssw0rd"
+
+### Moodle ###
+url: "https://download.moodle.org/stable39/moodle-3.9.1.tgz"
+path_download: /root
+
+### NGINX ###
+directory_project: /var/www/html/moodle

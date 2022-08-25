@@ -1,0 +1,33 @@
+- name: Install MariaDB 
+  apt: 
+    name: "{{ mariadb_packages }}"
+    state: latest 
+    update_cache: yes
+
+- name: Started and Enabled MariaDB  
+  service: 
+    name: mariadb 
+    enabled: true 
+    state: started
+
+- name: Configuration root password for MariaDB
+  command: mysqladmin -u root password {{ root_pass }}
+
+- name: Create DataBase for Moodle
+  community.mysql.mysql_db:
+    name: "{{ name_db }}"
+    encoding: utf8
+    collation: utf8_bin
+    state: present
+    login_user: root
+    login_password: "{{ root_pass }}"
+
+- name: Create User for Moodle
+  community.mysql.mysql_user:
+    name: "{{ user_db }}"
+    password: "{{ pass_user_db }}"
+    priv: '*.*:ALL,GRANT'
+    host: '%'
+    state: present
+    login_user: root
+    login_password: "{{ root_pass }}"
