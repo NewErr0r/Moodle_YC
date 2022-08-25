@@ -21,6 +21,9 @@ provider "yandex" {
 # terraform applay (ответить: yes)
 
 5. После поднятия инфраструктуры запустить развёртывание проекта на ВМ: 
+  5.1 Необходимые коллекции Ansible:
+# ansible-galaxy collection install community.mysql
+  5.2 Запуск:
 # ansible-playbook -i inventory deploy_moodle.yaml
 
 После на экран будет выведена ссылка на дуступ к сайту, а так же вспомогательные данные для регистрации БД:
